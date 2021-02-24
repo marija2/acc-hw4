@@ -63,6 +63,9 @@ var logoDictionary = {};
 // switch between showing information about social media usage and platforms for class/work related communication
 var selectQuestion;
 
+// text displaying "click on icon..."
+var clickText;
+
 // get images
 function preload() {
 
@@ -179,24 +182,28 @@ function setup() {
 
   // can view information gathered from two types of questions
   selectQuestion = createSelect();
-  selectQuestion.position ( 30, 100 );
+  selectQuestion.position ( 170, 35 );
   selectQuestion.option ( "Compare social media usage", 0 );
   selectQuestion.option ( "Compare platforms for class/work communication", 1 );
   selectQuestion.addClass('selectClass');
 
   // for switching between pre and post covid data
   prePostCovidBtn = createButton ("Post COVID");
-  prePostCovidBtn.position ( 30, 30 );
+  prePostCovidBtn.position ( 30, 20 );
   prePostCovidBtn.mousePressed ( prePostCovid );
   prePostCovidBtn.addClass ( 'btnStyle' );
   prePostCovidBtn.id ( 'prePostCovidBtn' ); 
 
   // switching between sorted and mixed view
   sortBtn = createButton ( "Sort them" );
-  sortBtn.position ( 190, 30 );
+  sortBtn.position ( 100, 20 );
   sortBtn.mousePressed ( flipSort );
   sortBtn.addClass ( 'btnStyle' );
   sortBtn.id ( 'sortBtn' );
+  
+  clickText = createElement('h5', 'CLICK AN ICON TO SEE DATA');
+  clickText.addClass('myFont');
+  clickText.position( 1000, 15);
 
   // will only be considering these platforms and discarding other answers ( such as typos and "i don't use any" )
   logoDictionary = {
@@ -304,4 +311,22 @@ function draw () {
     }
   }
 
+}
+
+
+function mousePressed() {
+  if ( selectQuestion.value() == 0 ) {
+
+    for ( var i = 0; i < q1ObjArr.length; ++i ) {
+
+      q1ObjArr[i].clicked ();
+    }
+  }
+  else if ( selectQuestion.value() == 1 ) {
+
+    for ( var i = 0; i < q2ObjArr.length; ++i ) {
+      
+      q2ObjArr[i].clicked ();
+    }
+  }
 }
